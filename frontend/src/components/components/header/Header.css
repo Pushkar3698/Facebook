@@ -1,0 +1,94 @@
+.fb-header {
+  width: 100%;
+  min-height: 40px;
+  background-color: white;
+  box-shadow: -1px 1px 19px -12px rgba(0, 0, 0, 0.61);
+  -webkit-box-shadow: -1px 1px 19px -12px rgba(0, 0, 0, 0.61);
+  -moz-box-shadow: -1px 1px 19px -12px rgba(0, 0, 0, 0.61);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+#search-bar {
+  width: 160px;
+  padding-left: 20px;
+  height: 100%;
+  background: rgb(226, 226, 226);
+  border: none;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.search-bar svg {
+  height: 100%;
+  width: 20px;
+
+  background: rgb(226, 226, 226);
+  fill: black;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 0 10px;
+}
+.search-bar {
+  height: 35px;
+  display: flex;
+  margin-left: 15px;
+}
+.header-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.facebook-logo {
+  margin-left: 10px;
+}
+.facebook-logo svg {
+  transform: scale(0.9);
+}
+.header-middle-logo svg,
+.header-right-logo svg {
+  cursor: pointer;
+}
+.header-middle-logo,
+.header-logo {
+  height: 100%;
+}
+.header-middle-logo {
+  display: flex;
+  width: 400px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.header-right {
+  margin-right: 20px;
+  height: 100%;
+  display: flex;
+}
+.user-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  background-color: grey;
+  border-radius: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+.user-name {
+  font-size: 14px;
+  width: 100px;
+  font-weight: 600;
+}
+.header-right-logo {
+  display: flex;
+
+  width: 150px;
+  justify-content: space-between;
+  align-items: center;
+}
+.active {
+  fill: blue;
+}

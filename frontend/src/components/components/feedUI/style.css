@@ -1,0 +1,15 @@
+.feed-container {
+  width: 55%;
+  margin: auto;
+  padding: 30px 0;
+}
+.posts-container {
+  min-height: 100px;
+  width: 100%;
+  padding: 30px 0;
+}
+.feed-loader {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
+}
