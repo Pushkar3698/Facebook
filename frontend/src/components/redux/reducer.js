@@ -62,13 +62,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       posts: filteredPosts,
     };
   } else if (action.type === TYPE.addComment) {
-    const findIndex = state.posts.findIndex(
-      (el) => el._id.toString() === action.payload.id
-    );
+    const { comments, id } = action.payload;
+
+    const findIndex = state.posts.findIndex((el) => el._id.toString() === id);
 
     const newPosts = [...state.posts];
 
-    newPosts[findIndex].comments = action.payload.comments;
+    newPosts[findIndex].comments = comments;
 
     return {
       ...state,

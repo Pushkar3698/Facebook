@@ -1,8 +1,6 @@
 const userModel = require("../models/User");
 const Post = require("../models/Post");
 const { getIO } = require("../socket io/io");
-const Comment = require("../models/Comment");
-const path = require("path");
 
 exports.home = (req, res, next) => {
   userModel
@@ -21,17 +19,30 @@ exports.home = (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
   try {
-    const { text, createdBy } = req.body;
+    const { text, createdBy, createdAt } = req.body;
+    // let { path, filename } = req.file;
+    let path;
+    let filename;
 
-    console.log(req.body);
-    console.log(req.file);
+    if (!req.file) {
+      path = filename = "";
+    } else {
+      path = req.file.path;
+      filename = req.file.filename;
+    }
 
-    // const post = new Post({ text: text, creatorId: createdBy });
-    // await post.save();
+    const post = new Post({
+      text: text,
+      creatorId: createdBy,
+      imagePath: path,
+      imageFileName: filename,
+    });
+    await post.save();
 
-    // const newPost = await post.populate("creatorId");
-    // const io = getIO();
-    // io.emit("posts", newPost);
+    const newPost = await post.populate("creatorId");
+
+    const io = getIO();
+    io.emit("posts", newPost);
 
     res.status(200).json({ message: "Post created" });
   } catch (err) {
@@ -41,7 +52,9 @@ exports.createPost = async (req, res, next) => {
 
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("creatorId").populate("comments");
+    const posts = await Post.find()
+      .populate("creatorId")
+      .populate("comments.userId");
     if (!posts) {
       throw new Error("cannot get posts");
     }
@@ -110,29 +123,26 @@ exports.deletePost = async (req, res, next) => {
 
 exports.addComment = async (req, res, next) => {
   try {
-    const { userId, comment, postId } = req.body;
-
-    const commentByUser = new Comment({
-      createdBy: userId,
-      comment,
-    });
-
-    await commentByUser.save();
+    const { postId } = req.body;
 
     const post = await Post.findById(postId);
 
-    post.comments.push(commentByUser);
+    post.comments.push(req.body);
 
     await post.save();
 
-    const newPost = await post.populate("comments");
+    await post.populate({
+      path: "comments.userId",
+      model: "User",
+    });
 
     const io = getIO();
 
     const data = {
-      comments: newPost.comments,
-      id: newPost._id,
+      comments: post.comments,
+      id: postId,
     };
+
     io.emit("add-comment", data);
 
     res.json({ message: "Comment-Created" });

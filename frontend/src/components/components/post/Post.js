@@ -24,6 +24,7 @@ const CommentModal = ({ modalHandler, comments }) => {
               comment={el.comment}
               key={el._id}
               id={el._id}
+              user={el.userId.firstname + " " + el.userId.lastname}
             />
           ))}
         </div>
@@ -49,6 +50,8 @@ export const Post = ({
   userId,
   token,
   comments,
+  imagePath,
+  filename,
 }) => {
   const [deleteError, setdeleteError] = useState(false);
   const [commentBox, setcommentBox] = useState(false);
@@ -127,6 +130,11 @@ export const Post = ({
       <div className="post-text">
         <p>{text}</p>
       </div>
+      {imagePath && (
+        <div className="post-image">
+          <img src={"http://localhost:8000/" + filename} alt="" />
+        </div>
+      )}
       <div className="post-likes">
         <p>{likes.length} people like this post</p>
         <p className="commented-people" onClick={() => setmodal(true)}>

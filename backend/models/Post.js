@@ -13,7 +13,19 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     likes: [{ type: ObjectId, ref: "User" }],
-    comments: [{ type: ObjectId, ref: "Comment" }],
+    comments: [
+      {
+        comment: { type: String },
+        userId: { type: ObjectId, ref: "User" },
+        postId: { type: ObjectId, ref: "Post" },
+      },
+    ],
+    imagePath: {
+      type: String,
+    },
+    imageFileName: {
+      type: String,
+    },
   },
   {
     timestamps: true,

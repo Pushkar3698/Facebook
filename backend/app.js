@@ -10,26 +10,26 @@ const multer = require("multer");
 
 const path = require("path");
 
-const fileStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "public"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
-  },
-});
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/jpg"
-  ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "public"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, new Date().toISOString() + "-" + file.originalname);
+//   },
+// });
+// const fileFilter = (req, file, cb) => {
+//   if (
+//     file.mimetype === "image/png" ||
+//     file.mimetype === "image/jpeg" ||
+//     file.mimetype === "image/jpg"
+//   ) {
+//     cb(null, true);
+//   } else {
+//     cb(null, false);
+//   }
+// };
+// const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 // ///////////////////////////////
 const url =
@@ -56,7 +56,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
 app.use(cors());
-app.use(upload.single("image"));
 
 app.use(userRoutes);
 app.use("/feed", feedRouter);
@@ -68,14 +67,13 @@ mongoose
     const server = app.listen(PORT);
     const data = {
       cors: {
-        origin: "http://localhost:3001",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST", "PUT"],
       },
     };
     const io = require("./socket io/io").init(server, data);
     io.on("connection", (socket) => {
       console.log("Client connected " + socket.id);
-      console.log(path.join(__dirname, "public"));
     });
   })
   .catch((err) => console.log(err));

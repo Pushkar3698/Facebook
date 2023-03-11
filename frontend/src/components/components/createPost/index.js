@@ -22,17 +22,12 @@ export default function CreatePost({ user, loader }) {
       loader(true);
 
       const form = new FormData();
+
       form.append("text", text);
       form.append("image", image);
       form.append("createdBy", user._id.toString());
       form.append("createdAt", new Date());
 
-      // const data = {
-      //   text: contentRef.current.value,
-      //   createdBy: user._id.toString(),
-      //   createdAt: new Date(),
-      // };
-      console.log(form);
       const fetchData = await fetch("http://localhost:8000/feed/createPost", {
         method: "POST",
         body: form,

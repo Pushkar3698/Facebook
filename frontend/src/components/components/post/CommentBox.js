@@ -12,6 +12,9 @@ const CommentBox = ({ modalHandler, comments, data, token }) => {
             comment={comments[comments.length - 1].comment}
             key={comments[comments.length - 1]._id}
             id={comments[comments.length - 1]._id}
+            user={
+              comments[0].userId.firstname + " " + comments[0].userId.lastname
+            }
             number={0}
           />
         )}

@@ -1,6 +1,6 @@
 import React from "react";
 
-const comment = ({ modalHandler, comment, id, number }) => {
+const comment = ({ modalHandler, comment, id, number, user }) => {
   return (
     <div className="comment" onClick={() => modalHandler(true)}>
       <div className="comment-by">
@@ -10,7 +10,7 @@ const comment = ({ modalHandler, comment, id, number }) => {
             alt=""
           />
           <div className="user-name-comment" style={{ marginLeft: "10px" }}>
-            Pushkar verma
+            {user}
           </div>
         </div>
 

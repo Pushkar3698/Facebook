@@ -68,7 +68,7 @@ export const FeedUI = ({ userData }) => {
       socket.removeAllListeners();
     };
   }, []);
-  // console.log(posts[0]);
+
   return (
     <div className="feed-container">
       <div className="story-container">
@@ -96,6 +96,8 @@ export const FeedUI = ({ userData }) => {
               userId={userData._id}
               token={token}
               comments={el.comments}
+              imagePath={el.imagePath}
+              filename={el.imageFileName}
             />
           ))}
       </div>
